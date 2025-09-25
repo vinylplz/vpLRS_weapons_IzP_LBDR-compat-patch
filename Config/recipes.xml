@@ -1,0 +1,41 @@
+<vinylplz>
+
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_T2IT3')">
+		<!-- ================= AMMO =======================
+		ammoShotgunHellFire			: ammoShotgunSlug
+		ammoBundleShotgunHellFire	: ammoBundleShotgunSlug
+		-->
+		<!-- add the "learnable" tag to ammoShotgunHellFire to make it NOT craftable by default -->
+		<csv xpath = "recipes/recipe[@name='ammoShotgunHellFire']/@tags" op="Add">learnable</csv>
+	</if>
+	</conditional>
+
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_T2IT3') or mod_loaded('LittleRedSonja_T2IT3_ONLY_MELEE')">	
+		<!-- ======= T1 MELEE ========
+		meleeWpnBladeT1SonjaWineBottle
+		meleeWpnClubT1SonjaCandelabra
+		meleeWpnClubT1SonjaChair
+		meleeWpnSpearT1SonjastandIV
+		-->
+		
+		<!-- In IzP LBDR, T1 tools/melee are unlocked by default, but require a workbench to craft -->
+
+		<!-- adds workbench requirement -->
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnBladeT1SonjaWineBottle']" name="craft_area">workbench</setattribute>
+		<!-- removes "learnable" tag.  adds "workbenchCrafting" tag -->
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnBladeT1SonjaWineBottle']" name="tags">perkDeepCuts,workbenchCrafting</setattribute>
+
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnClubT1SonjaCandelabra']" name="craft_area">workbench</setattribute>
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnClubT1SonjaCandelabra']" name="tags">perkPummelPete,workbenchCrafting</setattribute>
+
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnClubT1SonjaChair']" name="craft_area">workbench</setattribute>
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnClubT1SonjaChair']" name="tags">perkPummelPete,workbenchCrafting</setattribute>
+
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnSpearT1SonjastandIV']" name="craft_area">workbench</setattribute>
+		<setattribute xpath = "recipes/recipe[@name='meleeWpnSpearT1SonjastandIV']" name="tags">perkJavelinMaster,workbenchCrafting</setattribute>
+	</if>
+	</conditional>
+
+</vinylplz>

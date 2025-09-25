@@ -1,0 +1,143 @@
+<vinylplz>
+
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_T2IT3')">
+		<!-- ================== RANGED ============================
+		LRS WEAPON							: VANILLA WEAPON
+		...........................................................
+		gunAssaultAK74Z						: gunMGT3M60
+		gunHandgunMP12 						: gunHandgunT3SMG5
+		gunHandgunT3SonjaRugerBlackhawk 	: gunHandgunT3DesertVulture
+		gunRifleT3WinchesterRifle 			: gunRifleT3SniperRifle
+		gunShotgunT3HollandParadox 			: gunShotgunT3AutoShotgun
+		gunShotgunT3Remington 				: gunShotgunT3AutoShotgun
+		gunShotgunT3SonjaFishotgun 			: gunShotgunT3AutoShotgun
+		-->
+		<!-- Set the UnlockedBy attribute for each weapon -->
+		<setattribute xpath="items/item[@name='gunAssaultAK74Z']/property[@name='UnlockedBy']" name="value">gunMGT3M60Schematic,perkAutoRifleCrafting</setattribute>
+		<setattribute xpath="items/item[@name='gunHandgunMP12']/property[@name='UnlockedBy']" name="value">gunHandgunT3SMG5Schematic,perkPistolCrafting</setattribute>
+		<setattribute xpath="items/item[@name='gunHandgunT3SonjaRugerBlackhawk']/property[@name='UnlockedBy']" name="value">gunHandgunT3DesertVultureSchematic,perkPistolCrafting</setattribute>
+		<setattribute xpath="items/item[@name='gunRifleT3WinchesterRifle']/property[@name='UnlockedBy']" name="value">gunRifleT3SniperRifleSchematic,perkRifleCrafting</setattribute>
+		<setattribute xpath="items/item[@name='gunShotgunT3HollandParadox']/property[@name='UnlockedBy']" name="value">gunShotgunT3AutoShotgunSchematic,perkShotgunCrafting</setattribute>
+		<setattribute xpath="items/item[@name='gunShotgunT3Remington']/property[@name='UnlockedBy']" name="value">gunShotgunT3AutoShotgunSchematic,perkShotgunCrafting</setattribute>
+		<!--<setattribute xpath="items/item[@name='gunShotgunT3SonjaFishotgun']/property[@name='UnlockedBy']" name="value">gunShotgunT3AutoShotgunSchematic,perkShotgunCrafting</setattribute>-->
+
+		<!-- Update the related vanilla Schematics to unlock the LRS weapons -->
+		<csv xpath="/items/item[@name='gunMGT3M60Schematic']/property[@name='Unlocks']/@value" op="Add">gunAssaultAK74Z</csv>
+		<append xpath="/items/item[@name='gunMGT3M60Schematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunAssaultAK74Z" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='gunHandgunT3SMG5Schematic']/property[@name='Unlocks']/@value" op="Add">gunHandgunMP12</csv>
+		<append xpath="/items/item[@name='gunHandgunT3SMG5Schematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunHandgunMP12" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='gunHandgunT3DesertVultureSchematic']/property[@name='Unlocks']/@value" op="Add">gunHandgunT3SonjaRugerBlackhawk</csv>
+		<append xpath="/items/item[@name='gunHandgunT3DesertVultureSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunHandgunT3SonjaRugerBlackhawk" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='gunRifleT3SniperRifleSchematic']/property[@name='Unlocks']/@value" op="Add">gunRifleT3WinchesterRifle</csv>
+		<append xpath="/items/item[@name='gunRifleT3SniperRifleSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunRifleT3WinchesterRifle" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='gunShotgunT3AutoShotgunSchematic']/property[@name='Unlocks']/@value" op="Add">gunShotgunT3HollandParadox,gunShotgunT3Remington</csv>
+		<append xpath="/items/item[@name='gunShotgunT3AutoShotgunSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunShotgunT3HollandParadox" operation="set" value="1"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunShotgunT3Remington" operation="set" value="1"/>
+			<!--<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="gunShotgunT3SonjaFishotgun" operation="set" value="1"/>-->
+		</append>
+
+		<!-- ================= AMMO =======================
+		ammoShotgunHellFire			: ammoShotgunSlug
+		ammoBundleShotgunHellFire	: ammoBundleShotgunSlug
+		-->		
+		<!-- ammoShotgunHellFire does not have an "UnlockedBy" property, so we can't use our normal approach:
+		<setattribute xpath="items/item[@name='ammoShotgunHellFire']/property[@name='UnlockedBy']" name="value">ammoShotgunSlugSchematic,perkShellCrafting</setattribute>
+		     instead we must add one manually -->
+		<append xpath="items/item[@name='ammoShotgunHellFire']">
+			<property name="UnlockedBy" value="ammoShotgunSlugSchematic,perkShellCrafting"/>
+		</append>
+		<!-- ammoBundleShotgunHellFire does have "UnlockedBy", so back to our normal approach -->
+		<setattribute xpath="items/item[@name='ammoBundleShotgunHellFire']/property[@name='UnlockedBy']" name="value">perkShellCrafting</setattribute>
+
+		<csv xpath="/items/item[@name='ammoShotgunSlugSchematic']/property[@name='Unlocks']/@value" op="Add">ammoShotgunHellFire</csv>
+		<append xpath="/items/item[@name='ammoShotgunSlugSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="ammoShotgunHellFire" operation="set" value="1"/>
+		</append>
+		
+	</if>
+	</conditional>
+
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_T2IT3') or mod_loaded('LittleRedSonja_T2IT3_ONLY_MELEE')">
+		<!-- ===================== T3 MELEE =========================
+		meleeWpnBladeT3SealCombatKnife		: meleeWpnBladeT3Machete
+		meleeWpnClubT3SonjaStopSign			: meleeWpnClubT3SteelClub
+		meleeWpnClubT3SonjaValvePipe		: meleeWpnClubT3SteelClub
+		meleeWpnClubT3TitaniumBaseballBat	: meleeWpnClubT3SteelClub
+		meleeWpnKnucklesT3DevouringGloves	: meleeWpnKnucklesT3SteelKnuckles
+		meleeWpnSledgeT3ElectroHammer		: meleeWpnSledgeT3SteelSledgehammer
+		-->
+		<!-- Set the UnlockedBy attribute for each weapon -->
+		<setattribute xpath="items/item[@name='meleeWpnBladeT3SealCombatKnife']/property[@name='UnlockedBy']" name="value">meleeWpnBladeT3MacheteSchematic,perkBladeCrafting</setattribute>
+		<setattribute xpath="items/item[@name='meleeWpnClubT3SonjaStopSign']/property[@name='UnlockedBy']" name="value">meleeWpnClubT3SteelClubSchematic,perkBluntCrafting</setattribute>
+		<setattribute xpath="items/item[@name='meleeWpnClubT3SonjaValvePipe']/property[@name='UnlockedBy']" name="value">meleeWpnClubT3SteelClubSchematic,perkBluntCrafting</setattribute>
+		<setattribute xpath="items/item[@name='meleeWpnClubT3TitaniumBaseballBat']/property[@name='UnlockedBy']" name="value">meleeWpnClubT3SteelClubSchematic,perkBluntCrafting</setattribute>
+		<setattribute xpath="items/item[@name='meleeWpnKnucklesT3DevouringGloves']/property[@name='UnlockedBy']" name="value">meleeWpnKnucklesT3SteelKnucklesSchematic,perkBluntCrafting</setattribute>
+		<setattribute xpath="items/item[@name='meleeWpnSledgeT3ElectroHammer']/property[@name='UnlockedBy']" name="value">meleeWpnSledgeT3SteelSledgehammerSchematic,perkBluntCrafting</setattribute>
+
+		<!-- Update the related vanilla Schematics to unlock the LRS weapons -->
+		<csv xpath="/items/item[@name='meleeWpnBladeT3MacheteSchematic']/property[@name='Unlocks']/@value" op="Add">meleeWpnBladeT3SealCombatKnife</csv>
+		<append xpath="/items/item[@name='meleeWpnBladeT3MacheteSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnBladeT3SealCombatKnife" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='meleeWpnClubT3SteelClubSchematic']/property[@name='Unlocks']/@value" op="Add">meleeWpnClubT3SonjaStopSign,meleeWpnClubT3SonjaValvePipe,meleeWpnClubT3TitaniumBaseballBat</csv>
+		<append xpath="/items/item[@name='meleeWpnClubT3SteelClubSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnClubT3SonjaStopSign" operation="set" value="1"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnClubT3SonjaValvePipe" operation="set" value="1"/>
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnClubT3TitaniumBaseballBat" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='meleeWpnKnucklesT3SteelKnucklesSchematic']/property[@name='Unlocks']/@value" op="Add">meleeWpnKnucklesT3DevouringGloves</csv>
+		<append xpath="/items/item[@name='meleeWpnKnucklesT3SteelKnucklesSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnKnucklesT3DevouringGloves" operation="set" value="1"/>
+		</append>
+		<csv xpath="/items/item[@name='meleeWpnSledgeT3SteelSledgehammerSchematic']/property[@name='Unlocks']/@value" op="Add">meleeWpnSledgeT3ElectroHammer</csv>
+		<append xpath="/items/item[@name='meleeWpnSledgeT3SteelSledgehammerSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnSledgeT3ElectroHammer" operation="set" value="1"/>
+		</append>
+
+
+		<!-- =================== T1 MELEE ============================
+		meleeWpnBladeT1SonjaWineBottle	: meleeWpnBladeT1HuntingKnife
+		meleeWpnClubT1SonjaCandelabra	: meleeWpnClubT1BaseballBat
+		meleeWpnClubT1SonjaChair		: meleeWpnClubT1BaseballBat
+		meleeWpnSpearT1SonjastandIV		: meleeWpnSpearT1IronSpear
+		-->
+		<!-- These are always unlocked.  See also recipes.xml -->
+		<remove xpath ="items/item[@name='meleeWpnBladeT1SonjaWineBottle']/property[@name='UnlockedBy']"/>
+		<remove xpath ="items/item[@name='meleeWpnClubT1SonjaCandelabra']/property[@name='UnlockedBy']"/>
+		<remove xpath ="items/item[@name='meleeWpnClubT1SonjaChair']/property[@name='UnlockedBy']"/>
+		<remove xpath ="items/item[@name='meleeWpnSpearT1SonjastandIV']/property[@name='UnlockedBy']"/>
+
+		<!-- Most actionSkill buffs check against the vanilla tags on weapons... except Spears, which need pierceMelee -->
+		<!-- add pierceMelee tag to meleeWpnSpearT1SonjastandIV -->
+		<csv xpath="/items/item[@name='meleeWpnSpearT1SonjastandIV']/property[@name='Tags']/@value" op="Add">pierceMelee</csv>
+	</if>
+	</conditional>	
+	
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_BigBadBat')">
+		<!-- ================ BIG BAD BAT =========================
+		meleeWpnClubT3BigBadBat		: meleeWpnClubT3SteelClub
+		-->
+		<!-- Set the UnlockedBy attribute -->
+		<setattribute xpath="items/item[@name='meleeWpnClubT3BigBadBat']/property[@name='UnlockedBy']" name="value">meleeWpnClubT3SteelClubSchematic,perkBluntCrafting</setattribute>
+
+		<!-- Update the related vanilla Schematic to unlock the LRS weapon -->
+		<csv xpath="/items/item[@name='meleeWpnClubT3SteelClubSchematic']/property[@name='Unlocks']/@value" op="Add">meleeWpnClubT3BigBadBat</csv>
+		<append xpath="/items/item[@name='meleeWpnClubT3SteelClubSchematic']/effect_group">
+			<triggered_effect trigger="onSelfPrimaryActionEnd" action="ModifyCVar" cvar="meleeWpnClubT3BigBadBat" operation="set" value="1"/>
+		</append>
+	</if>
+	</conditional>	
+	
+</vinylplz>

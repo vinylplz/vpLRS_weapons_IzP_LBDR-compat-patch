@@ -1,0 +1,76 @@
+<vinylplz>	
+
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_T2IT3')">
+		<!-- ================== RANGED ============================
+		LRS WEAPON							: VANILLA WEAPON
+		...........................................................
+		gunAssaultAK74Z						: gunMGT3M60
+		gunHandgunMP12 						: gunHandgunT3SMG5
+		gunHandgunT3SonjaRugerBlackhawk 	: gunHandgunT3DesertVulture
+		gunRifleT3WinchesterRifle 			: gunRifleT3SniperRifle
+		gunShotgunT3HollandParadox 			: gunShotgunT3AutoShotgun
+		gunShotgunT3Remington 				: gunShotgunT3AutoShotgun
+		gunShotgunT3SonjaFishotgun 			: gunShotgunT3AutoShotgun
+		-->
+		
+		<!-- The following line adds the gunAssaultAK74Z (LRS) to any perks that gunMGT3M60 (vanilla) is in, namely:		
+				* perkGunsmithCrafting: enables crafting higher quality guns
+				* perkAutoRifleCrafting: unlocks crafting machine guns			
+			The rest of the file follows the same pattern.
+		-->
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'gunMGT3M60')]/@tags" op="Add">gunAssaultAK74Z</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'gunHandgunT3SMG5')]/@tags" op="Add">gunHandgunMP12</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'gunHandgunT3DesertVulture')]/@tags" op="Add">gunHandgunT3SonjaRugerBlackhawk</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'gunRifleT3SniperRifle')]/@tags" op="Add">gunRifleT3WinchesterRifle</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'gunShotgunT3AutoShotgun')]/@tags" op="Add">gunShotgunT3HollandParadox,gunShotgunT3Remington</csv>
+		<!--<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'gunShotgunT3AutoShotgun')]/@tags" op="Add">gunShotgunT3SonjaFishotgun</csv>-->
+
+		<!-- ================= AMMO =======================
+		ammoShotgunHellFire			: ammoShotgunSlug
+		ammoBundleShotgunHellFire	: ammoBundleShotgunSlug
+		-->
+		<!-- adds ammoShotgunHellFire and ammoBundleShotgunHellFire to perkShellCrafting -->
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags, 'ammoShotgunSlug')]/@tags" op="Add">ammoShotgunHellFire</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags, 'ammoBundleShotgunSlug')]/@tags" op="Add">ammoBundleShotgunHellFire</csv>
+	</if>
+	</conditional>
+
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_T2IT3') or mod_loaded('LittleRedSonja_T2IT3_ONLY_MELEE')">
+		<!-- ===================== T3 MELEE =========================
+		meleeWpnBladeT3SealCombatKnife		: meleeWpnBladeT3Machete
+		meleeWpnClubT3SonjaStopSign			: meleeWpnClubT3SteelClub
+		meleeWpnClubT3SonjaValvePipe		: meleeWpnClubT3SteelClub
+		meleeWpnClubT3TitaniumBaseballBat	: meleeWpnClubT3SteelClub
+		meleeWpnKnucklesT3DevouringGloves	: meleeWpnKnucklesT3SteelKnuckles
+		meleeWpnSledgeT3ElectroHammer		: meleeWpnSledgeT3SteelSledgehammer
+		-->
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnBladeT3Machete')]/@tags" op="Add">meleeWpnBladeT3SealCombatKnife</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnClubT3SteelClub')]/@tags" op="Add">meleeWpnClubT3SonjaStopSign,meleeWpnClubT3SonjaValvePipe,meleeWpnClubT3TitaniumBaseballBat</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnKnucklesT3SteelKnuckles')]/@tags" op="Add">meleeWpnKnucklesT3DevouringGloves</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnSledgeT3SteelSledgehammer')]/@tags" op="Add">meleeWpnSledgeT3ElectroHammer</csv>
+
+		<!-- =================== T1 MELEE ============================
+		meleeWpnBladeT1SonjaWineBottle	: meleeWpnBladeT1HuntingKnife
+		meleeWpnClubT1SonjaCandelabra	: meleeWpnClubT1BaseballBat
+		meleeWpnClubT1SonjaChair		: meleeWpnClubT1BaseballBat
+		meleeWpnSpearT1SonjastandIV		: meleeWpnSpearT1IronSpear
+		-->
+		<!-- T1 Melee weapons are always unlocked, but still need to be added to perkBlacksmithCrafting to enabled higher-quality crafting -->
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnBladeT1HuntingKnife')]/@tags" op="Add">meleeWpnBladeT1SonjaWineBottle</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnClubT1BaseballBat')]/@tags" op="Add">meleeWpnClubT1SonjaCandelabra,meleeWpnClubT1SonjaChair</csv>
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnSpearT1IronSpear')]/@tags" op="Add">meleeWpnSpearT1SonjastandIV</csv>
+	</if>
+	</conditional>
+	
+	<conditional>
+	<if cond="mod_loaded('LittleRedSonja_BigBadBat')">
+		<!-- ================ BIG BAD BAT =========================
+		meleeWpnClubT3BigBadBat		: meleeWpnClubT3SteelClub
+		-->
+		<csv xpath="/progression/perks/perk/effect_group/passive_effect[contains(@tags,'meleeWpnClubT3SteelClub')]/@tags" op="Add">meleeWpnClubT3BigBadBat</csv>
+	</if>
+	</conditional>
+
+</vinylplz>
