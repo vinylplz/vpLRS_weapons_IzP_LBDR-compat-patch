@@ -1,5 +1,10 @@
 name: "Extract version from ModInfo.xml"
 description: "Parses ModInfo.xml and outputs the <Version> value"
+
+outputs:
+  version:
+    description: "Version string extracted from ModInfo.xml"
+
 runs:
   using: "composite"
   steps:
