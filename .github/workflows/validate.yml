@@ -15,21 +15,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Install libxml2-utils
-        run: sudo apt-get update && sudo apt-get install -y libxml2-utils
 
       - name: Validate all XML files
-        run: |
-          for f in $(find . -name "*.xml"); do
-            xmllint --noout "$f"
-          done
+        uses: ./.github/actions/validate-xml
 
       - name: Extract version from ModInfo.xml
         id: version
-        run: |
-          VERSION=$(xmllint --xpath "string(//Version/@value)" ModInfo.xml)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        uses: ./.github/actions/extract-version
 
       - name: Ensure version tag doesn't already exist
         run: |

@@ -13,9 +13,7 @@ jobs:
 
       - name: Extract version from ModInfo.xml
         id: version
-        run: |
-          VERSION=$(xmllint --xpath "string(//Version/@value)" ModInfo.xml)
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
+        uses: ./.github/actions/extract-version
 
       - name: Create release zip
         run: |
