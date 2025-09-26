@@ -1,0 +1,41 @@
+name: Release on Merge
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract version from ModInfo.xml
+        id: version
+        run: |
+          VERSION=$(xmllint --xpath "string(//Version/@value)" ModInfo.xml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create release zip
+        run: |
+          mkdir dist
+          ZIP_NAME="vpLRS_weapons_IzP_LBDR compat patch-v${{ steps.version.outputs.version }}.zip"
+          git archive --format=zip HEAD \
+            --prefix="vpLRS_weapons_IzP_LBDR compat patch-v${{ steps.version.outputs.version }}/" \
+            ':!/.git' ':!/.github' | perl -pe 's/\n/\r\n/g' > "dist/$ZIP_NAME"
+
+      - name: Create tag
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git tag "release-${{ steps.version.outputs.version }}"
+          git push origin "release-${{ steps.version.outputs.version }}"
+
+      - name: Upload release zip
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: release-${{ steps.version.outputs.version }}
+          name: v${{ steps.version.outputs.version }}
+          files: dist/*.zip
+          generate_release_notes: true
