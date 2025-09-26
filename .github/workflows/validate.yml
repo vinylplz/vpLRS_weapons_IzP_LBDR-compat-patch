@@ -1,0 +1,37 @@
+name: Validate
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate all XML files
+        run: |
+          for f in $(find . -name "*.xml"); do
+            xmllint --noout "$f"
+          done
+
+      - name: Extract version from ModInfo.xml
+        id: version
+        run: |
+          VERSION=$(xmllint --xpath "string(//Version/@value)" ModInfo.xml)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Ensure version tag doesn't already exist
+        run: |
+          if git fetch --tags && git tag -l | grep -q "release-${{ steps.version.outputs.version }}"; then
+            echo "Tag release-${{ steps.version.outputs.version }} already exists!"
+            exit 1
+          fi
+
