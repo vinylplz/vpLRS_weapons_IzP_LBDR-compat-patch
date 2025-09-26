@@ -27,7 +27,7 @@ jobs:
           ZIP_NAME="$BASENAME.zip"
 
           # Export repo into staging dir (skipping .git and .github)
-          rsync -av --exclude '.git' --exclude '.github' ./ "staging/$BASENAME/
+          rsync -av --exclude '.git' --exclude '.github' ./ "staging/$BASENAME/"
 
           # Convert all XML files in staging dir to CRLF
           find staging -name "*.xml" -type f -exec perl -pie 's/\n/\r\n/g' {} \;
