@@ -18,13 +18,22 @@ jobs:
         id: version
         uses: ./.github/actions/extract-version
 
-      - name: Create release zip
+      - name: Create release zip (with CRLF line endings in XML)
         run: |
-          mkdir dist
-          ZIP_NAME="vpLRS_weapons_IzP_LBDR compat patch-v${{ steps.version.outputs.version }}.zip"
-          git archive --format=zip HEAD \
-            --prefix="vpLRS_weapons_IzP_LBDR compat patch-v${{ steps.version.outputs.version }}/" \
-            ':!/.git' ':!/.github' | perl -pe 's/\n/\r\n/g' > "dist/$ZIP_NAME"
+          mkdir -p dist staging
+
+          VERSION="${{ steps.version.outputs.version }}"
+          BASENAME="vpLRS_weapons_IzP_LBDR compat patch-v${VERSION}"
+          ZIP_NAME="$BASENAME.zip"
+
+          # Export repo into staging dir (skipping .git and .github)
+          rsync -av --exclude '.git' --exclude '.github' ./ staging/$BASENAME/
+
+          # Convert all XML files in staging dir to CRLF
+          find staging -name "*.xml" -type f -exec perl -pie 's/\n/\r\n/g' {} \;
+
+          # Create the zip
+          (cd staging && zip -r "../dist/$ZIP_NAME" "$BASENAME")
 
       - name: Create tag
         run: |
